@@ -7,25 +7,14 @@ clone repo if not done yet and make sure you've got the latest code from main br
 ```bash
 git pull origin main
 ```
-### 2. Create a Virtual Environment (venv)
-#### Mac/Linux:
+### 2. Create environment
 ```bash
-python3 -m venv venv
-```
-#### Windows:
-```bash
-python -m venv venv
+conda create --name intune python=3.10
 ```
 
 ### 3. Activate the Environment
-must do this every time you open a new terminal to work on the project. kinda like conda activate rango i think (might have to double check)
-#### Mac/Linux: 
 ```bash
-source venv/bin/activate
-```
-#### Windows: 
-```bash
-venv\Scripts\activate
+conda activate intune
 ```
 
 ### 4. Install Requirements
@@ -43,6 +32,16 @@ Start the local website:
 python manage.py runserver
 ```
 then go to http://127.0.0.1:8000/ in browser
+
+
+## File Purposes
+### .github/workflows/django.yml
+#### Automated Quality Control System
+- Every time someone pushes code to GitHub, an automated process starts on a fresh cloud server.
+- It automatically installs all dependencies from requirements.txt and runs python manage.py test.
+- If someone pushes code that "breaks" the project (e.g., a typo or a broken database model), GitHub will show a Red X. If everything is perfect, we get a Green Checkmark.
+- Ensures that our main branch always stays functional and that we catch bugs before they reach the final submission.
+
 
 ## Team Workflow 
 Keep Requirements Up to Date
