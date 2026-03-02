@@ -1,7 +1,6 @@
 # inTune - Group Project
 
 ## TO DO (team members):
-Follow these steps exactly to set up your local development environment and keep everything in sync.
 
 ### 1. Clone and Update
 clone repo if not done yet and make sure you've got the latest code from main branch:
