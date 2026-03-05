@@ -47,6 +47,8 @@ git merge feature/accounts
 git push
 ```
 
+## PUSH TO DEV NOT MAIN 
+
 ## File Purposes
 ### .github/workflows/django.yml
 #### Automated Quality Control System
@@ -66,7 +68,7 @@ pip freeze > requirements.txt
 
 ### Remember to pull code before you start
 ```bash
-git pull origin main
+git pull origin dev
 ```
 #### When you are finished for the day:
 ```bash
@@ -76,7 +78,7 @@ git add .
 git commit -m "[Explain what you've done]"
 ```
 ```bash
-git push origin main
+git push origin dev
 ```
 
 Developed for WAD2 Coursework - University of Glasgow
