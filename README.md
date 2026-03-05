@@ -33,6 +33,19 @@ python manage.py runserver
 ```
 then go to http://127.0.0.1:8000/ in browser
 
+### 6. Go to branches locally
+```bash
+git fetch origin
+git checkout feature/accounts
+```
+
+### 7. Merge to dev
+```bash
+git checkout dev
+git pull
+git merge feature/accounts
+git push
+```
 
 ## File Purposes
 ### .github/workflows/django.yml
