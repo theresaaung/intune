@@ -5,7 +5,7 @@
 ### 1. Clone and Update
 clone repo if not done yet and make sure you've got the latest code from main branch:
 ```bash
-git pull origin main
+git pull origin dev
 ```
 ### 2. Create environment
 ```bash
@@ -35,15 +35,18 @@ then go to http://127.0.0.1:8000/ in browser
 
 ### 6. Go to branches locally
 ```bash
-git fetch origin
-git checkout feature/accounts
+git fetch dev
+git checkout feature/accounts (Eve)
+git checkout feature/spotify (Theresa)
+git checkout feature/matching (Euan)
+git checkout feature/messaging (Morgan)
 ```
 
 ### 7. Merge to dev
 ```bash
 git checkout dev
 git pull
-git merge feature/accounts
+git merge feature/(ur branch)
 git push
 ```
 
