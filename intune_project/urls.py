@@ -22,4 +22,5 @@ app_name = 'intune'
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('spotify/', include('spotify.urls')),
 ]
