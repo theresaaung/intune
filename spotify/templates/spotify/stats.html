@@ -6,51 +6,97 @@
 <div class="row">
     <div class="col-md-8 mx-auto">
         
-        <!-- Connect/Disconnect button -->
-        {% if spotify_connected %}
-            <a href="{% url 'spotify:refresh' %}" class="btn btn-success mb-3">Refresh Spotify Data</a>
-            <a href="{% url 'spotify:disconnect' %}" class="btn btn-danger mb-3">Disconnect Spotify</a>
-        {% else %}
-            <a href="{% url 'spotify:connect' %}" class="btn btn-success mb-3">Connect Spotify</a>
-        {% endif %}
+        <h2 class="mb-4">My Music Stats 🎵</h2>
+
+        <!-- Connect/Disconnect buttons -->
+        <div class="mb-4">
+            {% if spotify_connected %}
+                <a href="{% url 'spotify:refresh' %}" class="btn btn-success me-2">
+                    🔄 Refresh Spotify Data
+                </a>
+                <a href="{% url 'spotify:disconnect' %}" class="btn btn-danger">
+                    ✕ Disconnect Spotify
+                </a>
+            {% else %}
+                <a href="{% url 'spotify:connect' %}" class="btn btn-success">
+                    Connect Spotify
+                </a>
+            {% endif %}
+        </div>
 
         {% if spotify_data %}
+
+            <!-- Last updated -->
+            <p class="text-muted mb-4">
+                Last updated: {{ spotify_data.last_updated|date:"d M Y, H:i" }}
+            </p>
+
             <!-- Top Artists -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h4>Top Artists</h4>
-                    <ul>
+                    <h4 class="card-title">🎤 Top Artists</h4>
+                    <ol>
                         {% for artist in spotify_data.top_artists %}
-                            <li>{{ artist }}</li>
+                            <li class="mb-1">{{ artist }}</li>
+                        {% empty %}
+                            <p class="text-muted">No artists found.</p>
                         {% endfor %}
-                    </ul>
+                    </ol>
                 </div>
             </div>
 
             <!-- Top Genres -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h4>Top Genres</h4>
-                    {% for genre in spotify_data.top_genres %}
-                        <span class="badge bg-success me-1">{{ genre }}</span>
-                    {% endfor %}
+                    <h4 class="card-title">🎸 Top Genres</h4>
+                    <div class="mt-2">
+                        {% for genre in spotify_data.top_genres %}
+                            <span class="badge bg-success me-1 mb-1">{{ genre }}</span>
+                        {% empty %}
+                            <p class="text-muted">No genres found.</p>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
 
             <!-- Top Tracks -->
             <div class="card mb-4">
                 <div class="card-body">
-                    <h4>Top Tracks</h4>
-                    <ul>
+                    <h4 class="card-title">🎵 Top Tracks</h4>
+                    <ol>
                         {% for track in spotify_data.top_tracks %}
-                            <li>{{ track.name }} — {{ track.artist }} ({{ track.year }})</li>
+                            <li class="mb-1">
+                                {{ track.name }} 
+                                <span class="text-muted">— {{ track.artist }} ({{ track.year }})</span>
+                            </li>
+                        {% empty %}
+                            <p class="text-muted">No tracks found.</p>
                         {% endfor %}
-                    </ul>
+                    </ol>
                 </div>
             </div>
+
         {% else %}
-            <p>No Spotify data yet. Connect your Spotify account above!</p>
+            <!-- No data yet -->
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    {% if spotify_connected %}
+                        <h5>No data yet</h5>
+                        <p class="text-muted">Click refresh to fetch your Spotify data</p>
+                        <a href="{% url 'spotify:refresh' %}" class="btn btn-success">
+                            🔄 Fetch My Data
+                        </a>
+                    {% else %}
+                        <h5>Connect your Spotify account</h5>
+                        <p class="text-muted">Connect Spotify to see your music stats here</p>
+                        <a href="{% url 'spotify:connect' %}" class="btn btn-success">
+                            Connect Spotify
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         {% endif %}
+
     </div>
 </div>
 {% endblock %}

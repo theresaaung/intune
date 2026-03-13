@@ -21,7 +21,7 @@ def spotify_callback(request):
     
     if not code:
         messages.error(request, 'Spotify connection failed.')
-        return redirect('accounts:profile')
+        return redirect('spotify:stats')
 
     # exchange the code for tokens
     token_info = sp_oauth.get_access_token(code)
@@ -39,7 +39,7 @@ def spotify_callback(request):
     # immediately fetch their spotify data
     fetch_and_save_spotify_data(request.user)
     messages.success(request, 'Spotify connected successfully!')
-    return redirect('accounts:profile')
+    return redirect('spotify:stats')
 
 @login_required
 def spotify_disconnect(request):
@@ -47,7 +47,7 @@ def spotify_disconnect(request):
     SpotifyToken.objects.filter(user=request.user).delete()
     SpotifyData.objects.filter(user=request.user).delete()
     messages.success(request, 'Spotify disconnected.')
-    return redirect('accounts:profile')
+    return redirect('spotify:stats')
 
 @login_required
 def spotify_refresh(request):
@@ -57,4 +57,18 @@ def spotify_refresh(request):
         messages.success(request, 'Spotify data refreshed!')
     else:
         messages.error(request, 'Could not refresh — is your Spotify connected?')
-    return redirect('accounts:profile')
+    return redirect('spotify:stats')
+
+@login_required
+def spotify_stats(request):
+    try:
+        spotify_data = SpotifyData.objects.get(user=request.user)
+    except SpotifyData.DoesNotExist:
+        spotify_data = None
+
+    spotify_connected = SpotifyToken.objects.filter(user=request.user).exists()
+
+    return render(request, 'spotify/stats.html', {
+        'spotify_data': spotify_data,
+        'spotify_connected': spotify_connected,
+    })

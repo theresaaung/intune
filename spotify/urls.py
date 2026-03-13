@@ -8,4 +8,5 @@ urlpatterns = [
     path('callback/', views.spotify_callback, name='callback'),
     path('disconnect/', views.spotify_disconnect, name='disconnect'),
     path('refresh/', views.spotify_refresh, name='refresh'),
+    path('stats/', views.spotify_stats, name='stats'),
 ]
