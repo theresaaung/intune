@@ -5,7 +5,7 @@
 ### 1. Clone and Update
 clone repo if not done yet and make sure you've got the latest code from main branch:
 ```bash
-git pull origin main
+git pull origin dev
 ```
 ### 2. Create environment
 ```bash
@@ -38,6 +38,33 @@ python manage.py runserver
 ```
 then go to http://127.0.0.1:8000/ in browser
 
+### 6. Go to branches locally
+```bash
+git fetch dev
+git checkout feature/accounts (Eve)
+git checkout feature/spotify (Theresa)
+git checkout feature/matching (Euan)
+git checkout feature/messaging (Morgan)
+```
+
+### 7. Commit and merge to dev
+
+#### When you are finished for the day (in your local branch):
+```bash
+git add .
+git commit -m "[Explain what you've done]"
+git push 
+```
+#### Merge to Dev
+```bash
+git checkout dev
+git pull
+git merge feature/accounts
+git merge feature/(ur branch)
+git push
+```
+
+## PUSH TO DEV NOT MAIN 
 
 ## File Purposes
 ### .github/workflows/django.yml
@@ -54,22 +81,11 @@ If you install a new package, you must update the requirements file so the rest 
 
 ```bash
 pip freeze > requirements.txt
+git add requirements.txt
+git commit -m "add (package name) to requirements"
+git push
 ```
 
-### Remember to pull code before you start
-```bash
-git pull origin main
-```
-#### When you are finished for the day:
-```bash
-git add .
-```
-``` bash
-git commit -m "[Explain what you've done]"
-```
-```bash
-git push origin main
-```
 
 ### Fix base.html and home.html once urls have been registered
 base.html
