@@ -11,12 +11,17 @@ git pull origin main
 ```bash
 conda create --name intune python=3.10
 ```
+```bash
+python -m venv .venv
+```
 
 ### 3. Activate the Environment
 ```bash
 conda activate intune
 ```
-
+```bash
+source .venv/bin/activate
+```
 ### 4. Install Requirements
 Install all the necessary libraries (Django, etc.):
 as of now (march 2) theres only django but we'll have to run this command everytime someone installs a new package
