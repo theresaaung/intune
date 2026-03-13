@@ -8,23 +8,28 @@ clone repo if not done yet and make sure you've got the latest code from main br
 git pull origin dev
 ```
 ### 2. Create environment
+#### Mac/Linux: 
 ```bash
-conda create --name intune python=3.10
+python3 -m venv venv
 ```
+#### Windows:
 ```bash
-python -m venv .venv
+python -m venv venv
 ```
 
 ### 3. Activate the Environment
-```bash
-conda activate intune
-```
+must do this every time you open a new terminal to work on the project. 
+#### Mac/Linux: 
 ```bash
 source .venv/bin/activate
 ```
+#### Windows: 
+```bash
+venv\Scripts\activate
+```
+
 ### 4. Install Requirements
 Install all the necessary libraries (Django, etc.):
-as of now (march 2) theres only django but we'll have to run this command everytime someone installs a new package
 
 ```bash
 pip install -r requirements.txt
