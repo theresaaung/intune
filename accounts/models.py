@@ -22,7 +22,7 @@ class UserProfile(models.Model):
     ]
    
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50, blank=False)
+    display_name = models.CharField(max_length=100, blank=True)
     bio = models.TextField(blank=True)
     age = models.IntegerField(null=False, blank=False)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, blank=True)
