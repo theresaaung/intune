@@ -56,3 +56,9 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html', {
+        'profile': profile
+    })

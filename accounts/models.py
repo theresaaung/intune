@@ -27,7 +27,7 @@ class UserProfile(models.Model):
     age = models.IntegerField(null=False, blank=False)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, blank=True)
     location = models.CharField(max_length=100, blank=True)
-    profile_picture = models.ImageField(upload_to='profile_pics', blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     looking_for = models.CharField(max_length=20, choices=LOOKING_FOR_CHOICES, blank=True)
     matching_preference = models.CharField(max_length=20, choices=MATCHING_PREFERENCE_CHOICES, blank=True)
 

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>Your Profile</h1>
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" 
+             class="img-fluid mb-3"
+             style="width: 100%; max-width: 450px; height: 350px; object-fit: cover; border-radius: 12px;">
+    {% else %}
+        <div class="bg-secondary mb-3 d-flex align-items-center justify-content-center"
+             style="width: 100%; max-width: 450px; height: 350px; border-radius: 12px; color: white; font-size: 2rem;">
+            ?
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
