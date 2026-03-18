@@ -8,6 +8,8 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('profile/', views.profile, name='profile'),
+    path('edit/', views.edit_profile, name='edit_profile'),
+    path('delete/', views.delete_account, name='delete_account'),
 ]
 
 if settings.DEBUG:

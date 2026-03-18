@@ -15,5 +15,23 @@
             ?
         </div>
     {% endif %}
+    <h1 class="fw-bold mt-3">
+        {{ profile.display_name }}, {{ profile.age }}
+    </h1>
+    <p class="text-muted">{{ profile.location }}</p>
+    <hr class="my-4">
+    <div class="text-start mx-auto" style="max-width: 500px;">
+        <h5 class="mt-4">Details</h5>
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+        <p><strong>Gender:</strong> {{ profile.get_gender_display }}</p>
+        <p><strong>Looking For:</strong> {{ profile.get_looking_for_display }}</p>
+        <p><strong>Matching Preference:</strong> {{ profile.get_matching_preference_display }}</p>
+        <h5 class="mt-4">Preferences</h5>
+        <p><strong>Preffered Age Range:</strong> {{ profile.preferred_min_age }}-{{ profile.preferred_max_age }}</p>
+        <p><strong>Preferred Gender:</strong> {{ profile.get_preferred_gender_display }}</p>
+        <p><strong>Preferred Location:</strong> {{ profile.preferred_location }}</p>
+    </div>
+    <a href="{% url 'edit_profile' %}" class="btn btn-success me-2">Edit Profile</a>
+    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
 </div>
 {% endblock %}

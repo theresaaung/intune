@@ -3,6 +3,7 @@ from accounts.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from accounts.models import UserProfile
 
 # Create your views here.
 
@@ -59,6 +60,29 @@ def user_logout(request):
 
 @login_required
 def profile(request):
+    profile = UserProfile.objects.get(user=request.user)
     return render(request, 'accounts/profile.html', {
         'profile': profile
     })
+
+@login_required
+def edit_profile(request):
+    profile = request.user.userprofile
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=profile)
+    
+    return render(request, 'accounts/edit_profile.html', {'form': form})
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        logout(request)
+        user.delete()
+        return redirect('home')
+    return render(request, 'accounts/delete_account.html')
