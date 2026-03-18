@@ -8,18 +8,28 @@ clone repo if not done yet and make sure you've got the latest code from main br
 git pull origin dev
 ```
 ### 2. Create environment
+#### Mac/Linux: 
 ```bash
-conda create --name intune python=3.10
+python3 -m venv venv
+```
+#### Windows:
+```bash
+python -m venv venv
 ```
 
 ### 3. Activate the Environment
+must do this every time you open a new terminal to work on the project. 
+#### Mac/Linux: 
 ```bash
-conda activate intune
+source .venv/bin/activate
+```
+#### Windows: 
+```bash
+venv\Scripts\activate
 ```
 
 ### 4. Install Requirements
 Install all the necessary libraries (Django, etc.):
-as of now (march 2) theres only django but we'll have to run this command everytime someone installs a new package
 
 ```bash
 pip install -r requirements.txt
@@ -42,10 +52,19 @@ git checkout feature/matching (Euan)
 git checkout feature/messaging (Morgan)
 ```
 
-### 7. Merge to dev
+### 7. Commit and merge to dev
+
+#### When you are finished for the day (in your local branch):
+```bash
+git add .
+git commit -m "[Explain what you've done]"
+git push 
+```
+#### Merge to Dev
 ```bash
 git checkout dev
 git pull
+git merge feature/accounts
 git merge feature/(ur branch)
 git push
 ```
@@ -67,21 +86,11 @@ If you install a new package, you must update the requirements file so the rest 
 
 ```bash
 pip freeze > requirements.txt
+git add requirements.txt
+git commit -m "add (package name) to requirements"
+git push
 ```
 
-### Remember to pull code before you start
-```bash
-git pull origin dev
-```
-#### When you are finished for the day:
-```bash
-git add .
-```
-``` bash
-git commit -m "[Explain what you've done]"
-```
-```bash
-git push origin dev
-```
 
+```
 Developed for WAD2 Coursework - University of Glasgow
