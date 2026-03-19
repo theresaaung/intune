@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+ 
+{% block title %}Find a Match{% endblock %}
+
+{% block content %}
+   
+<div class="text-center mt-4">
+ 
+    <!-- Profile Photo -->
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}"
+             class="img-fluid mb-3"
+             style="width: 100%; max-width: 450px; height: 350px; object-fit: cover; border-radius: 12px;">
+    {% else %}
+        <div class="bg-secondary mb-3 d-flex align-items-center justify-content-center mx-auto"
+             style="max-width: 450px; height: 350px; border-radius: 12px; color: white; font-size: 2rem;">
+            ?
+        </div>
+    {% endif %}
+ 
+    <!-- Name & Age -->
+    <h2 class="fw-bold mt-2">{{ profile.display_name }}, {{ profile.age }}</h2>
+    <p class="text-muted">{{ profile.location }}</p>
+ 
+    <hr class="my-3 mx-auto" style="max-width: 450px;">
+ 
+    <!-- Bio & Music Details -->
+    <div class="text-start mx-auto" style="max-width: 450px;">
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+        <p><strong>Top Genre:</strong> {{ profile.top_genre }}</p>
+        <p><strong>Top Artists:</strong> {{ profile.top_artists }}</p>
+        <p><strong>Current Anthem:</strong> "{{ profile.anthem_title }}" – {{ profile.anthem_artist }}</p>
+    </div>
+ 
+    <hr class="my-3 mx-auto" style="max-width: 450px;">
+ 
+    <!-- Like / Pass Buttons -->
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="profile_id" value="{{ profile.id }}">
+        <button type="submit" name="action" value="like" class="btn btn-success me-3">Like</button>
+        <button type="submit" name="action" value="pass" class="btn btn-danger">Pass</button>
+    </form>
+ 
+</div>
+
+{% endblock %}
