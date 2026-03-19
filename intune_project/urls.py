@@ -26,6 +26,7 @@ urlpatterns = [
     path('spotify/', include('spotify.urls')),
     path('accounts/', include('accounts.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),  # add this
+    path('matching/', include('matching.urls')),
 ]
 
 if settings.DEBUG:
