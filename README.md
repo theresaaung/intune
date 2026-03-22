@@ -95,23 +95,17 @@ git push
 ### Fix base.html and home.html once urls have been registered
 base.html
 ```bash
-{% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
-                    <a class="nav-link" href="{% url 'matching:queue' %}">Find Matches</a>
-                    <a class="nav-link" href="{% url 'messaging:inbox' %}">Messages</a>
-                    <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
-                {% else %}
-                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
-                    <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
-                {% endif %}
+git pull origin dev
 ```
-home.html
+#### When you are finished for the day:
 ```bash
-<div class="text-center mt-5">
-    <h1>Welcome to Intune 🎵</h1>
-    <p class="lead">Find your perfect match through music</p>
-    <a href="{% url 'accounts:login' %}" class="btn btn-success me-2">Login</a>
-    <a href="{% url 'accounts:register' %}" class="btn btn-outline-success">Register</a>
-</div>
+git add .
 ```
+``` bash
+git commit -m "[Explain what you've done]"
+```
+```bash
+git push origin dev
+```
+
 Developed for WAD2 Coursework - University of Glasgow
