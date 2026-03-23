@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import UserProfile
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -28,11 +29,12 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
      
-    return render(request, 'accounts/register.html', {
+    context_dict = {
         'user_form': user_form,
         'profile_form': profile_form,
         'registered': registered,
-    })   
+    }
+    return render(request, 'accounts/register.html', context_dict)   
 
 def user_login(request):
     if request.method == 'POST':
@@ -47,9 +49,8 @@ def user_login(request):
             else:
                 return HttpResponse("Your account is disabled.")
         else:
-            return render(request, 'accounts/login.html', {
-                'error': "Invalid login details supplied."
-            })
+            context_dict = {'error': "Invalid login details supplied."}
+            return render(request, 'accounts/login.html', context_dict)
     
     return render(request, 'accounts/login.html')
 
@@ -60,10 +61,9 @@ def user_logout(request):
 
 @login_required
 def profile(request):
-    profile = UserProfile.objects.get(user=request.user)
-    return render(request, 'accounts/profile.html', {
-        'profile': profile
-    })
+    profile = UserProfile.objects.get(user=request.user) 
+    context_dict = {'profile': profile}
+    return render(request, 'accounts/profile.html', context_dict)
 
 @login_required
 def edit_profile(request):
@@ -76,7 +76,8 @@ def edit_profile(request):
     else:
         form = UserProfileForm(instance=profile)
     
-    return render(request, 'accounts/edit_profile.html', {'form': form})
+    context_dict = {'form': form}
+    return render(request, 'accounts/edit_profile.html', context_dict)
 
 @login_required
 def delete_account(request):
@@ -86,3 +87,10 @@ def delete_account(request):
         user.delete()
         return redirect('home')
     return render(request, 'accounts/delete_account.html')
+
+@login_required
+def view_user(request, username):
+    user = User.objects.get(username=username)
+    profile = user.userprofile   
+    context_dict = {'profile': profile}
+    return render(request, 'accounts/view_user.html', context_dict)

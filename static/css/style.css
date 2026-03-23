@@ -1,11 +1,214 @@
-body {
-    background-color: #f8f9fa;
-    color: #333;
+/* Home Page and Base Styling */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #dabcf5;
 }
 
-/* Make the navbar logo stand out */
-.navbar-brand {
-    font-weight: bold;
+.home-title {
+    font-size: 4rem;
+    font-weight: 700;
+    color:#ef515e;
+    text-align: center;
+    margin-top: 80px;
+}
+
+.i-heart {
+    position: relative;
+    display: inline-block;
+}
+
+.i-heart .heart {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color:#ef515e;
+    font-size: 1.4rem;
+    display: block;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.logo-at-top {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ef515e;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.home-button {
+    background-color: #adf2cc;
+    color: white;
     font-size: 1.5rem;
-    color: #1DB954 !important;  /* Spotify green — fits your app's theme */
+    padding: 15px 40px;
+    border: none;
+    display: block;
+    margin: 20px auto;
+    text-decoration: none;
+}
+
+.home-button:hover {
+    background-color: #5bf4a0;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    z-index: 1000;
+    background-color: white;
+    border-top: 1px solid #ccc;
+
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.bottom-nav a:hover {
+    color:#5bf4a0;
+}
+
+.page-wrapper {
+    margin-top: 0;
+    padding-top: 0;
+    background-color: #dabcf5;
+    min-height: 100vh;
+    padding: 10px 20px 140px;
+}
+
+.home-page .page-box {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+}
+
+.page-box {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 90%;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Profile Styling */
+
+.profile-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.profile-left {
+    width: 40%;
+    text-align: center;
+}
+
+.profile-picture-wrapper {
+    background-color: #adf2cc;
+    border: black;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.profile-picture-wrapper img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.no-photo-placeholder {
+    width: 100%;
+    height: 500px;
+    background-color: #adf2cc;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    font-weight: 700;
+}
+
+.profile-name-age {
+    margin-top: 15px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #8aa9f0;
+}
+
+.profile-location {
+    color: #8aa9f0;
+    opacity: 0.8;
+}
+
+.profile-right {
+    width: 60%;
+    color: #8aa9f0;
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.profile-right h3 {
+    margin-top: 0;
+    color: #8aa9f0;
+    font-weight: 700;
+}
+
+.profile-right p {
+    margin-bottom: 18px;
+    line-height: 2.5;
+}
+
+.profile-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.base-btn {
+    background-color: #5bf4a0;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-right: 20px;
+    width: 300px;
+    display: inline-block;
+    text-align: center;
+}
+
+.base-btn:hover {
+    background-color: #39c176;
+}
+
+.delete-account-btn {
+    background-color: #ef515e;
+    color: white;
+}
+
+.delete-account-btn:hover {
+    background-color: #eb2d3d;
 }

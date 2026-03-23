@@ -92,5 +92,20 @@ git push
 ```
 
 
+### Fix base.html and home.html once urls have been registered
+base.html
+```bash
+git pull origin dev
 ```
+#### When you are finished for the day:
+```bash
+git add .
+```
+``` bash
+git commit -m "[Explain what you've done]"
+```
+```bash
+git push origin dev
+```
+
 Developed for WAD2 Coursework - University of Glasgow

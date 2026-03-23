@@ -3,35 +3,37 @@
 {% block title %}Your Profile{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Your Profile</h1>
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}" 
-             class="img-fluid mb-3"
-             style="width: 100%; max-width: 450px; height: 350px; object-fit: cover; border-radius: 12px;">
-    {% else %}
-        <div class="bg-secondary mb-3 d-flex align-items-center justify-content-center"
-             style="width: 100%; max-width: 450px; height: 350px; border-radius: 12px; color: white; font-size: 2rem;">
-            ?
+<div class="profile-container">
+    <div class="profile-left">
+        <div class="profile-picture-wrapper">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <div class="no-photo-placeholder">?</div>
+            {% endif %}
         </div>
-    {% endif %}
-    <h1 class="fw-bold mt-3">
+        <h2 class="profile-name-age">
         {{ profile.display_name }}, {{ profile.age }}
-    </h1>
-    <p class="text-muted">{{ profile.location }}</p>
-    <hr class="my-4">
-    <div class="text-start mx-auto" style="max-width: 500px;">
-        <h5 class="mt-4">Details</h5>
+        </h2>
+        <p class="profile-location">{{ profile.location }}</p>
+    </div>
+
+    <div class="profile-right">
+        <h3>Details</h3>
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
         <p><strong>Gender:</strong> {{ profile.get_gender_display }}</p>
         <p><strong>Looking For:</strong> {{ profile.get_looking_for_display }}</p>
         <p><strong>Matching Preference:</strong> {{ profile.get_matching_preference_display }}</p>
-        <h5 class="mt-4">Preferences</h5>
+        <h3 class="mt-4">Preferences</h3>
         <p><strong>Preffered Age Range:</strong> {{ profile.preferred_min_age }}-{{ profile.preferred_max_age }}</p>
         <p><strong>Preferred Gender:</strong> {{ profile.get_preferred_gender_display }}</p>
         <p><strong>Preferred Location:</strong> {{ profile.preferred_location }}</p>
     </div>
-    <a href="{% url 'edit_profile' %}" class="btn btn-success me-2">Edit Profile</a>
-    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+
+    <div class="profile-buttons">
+        <a href="{% url 'edit_profile' %}" class="base-btn">Edit Profile</a>
+        <a href="#" class="base-btn">Spotify Stats</a>
+        <a href="{% url 'delete_account' %}" class="base-btn delete-account-btn">Delete Account</a>
+    </div>
 </div>
 {% endblock %}

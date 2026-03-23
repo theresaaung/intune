@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ profile.display_name }}{% endblock %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <h1>{{ profile.display_name }}'s Profile</h1>
+
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" 
+             class="img-fluid mb-3"
+             style="width: 100%; max-width: 450px; height: 350px; object-fit: cover; border-radius: 12px;">
+    {% else %}
+        <div class="bg-secondary mb-3 d-flex align-items-center justify-content-center"
+             style="width: 100%; max-width: 450px; height: 350px; border-radius: 12px; color: white; font-size: 2rem;">
+            ?
+        </div>
+    {% endif %}
+    <h1 class="fw-bold mt-3">
+        {{ profile.display_name }}, {{ profile.age }}
+    </h1>
+    <p class="text-muted">{{ profile.location }}</p>
+    <hr class="my-4">
+
+    <div class="text-start mx-auto" style="max-width: 500px;">
+        <h5 class="mt-4">Details</h5>
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+                {% if profile.top_genre %}
+            <p><strong>Top Genres:</strong> {{ profile.top_genres|join:", " }}</p>
+        {% endif %}
+        {% if profile.top_artists %}
+            <p><strong>Top Artists:</strong> {{ profile.top_artists|join:", " }}</p>
+        {% endif %}
+        {% if profile.anthem_title %}
+            <p><strong>Current Anthem:</strong> "{{ profile.anthem_title }}" – {{ profile.anthem_artist }}</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'matches' %}" class="btn btn-secondary">Back to Matches</a>
+    <a href="#" class="btn btn-secondary">Message</a>
+</div>
+{% endblock %}
