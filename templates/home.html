@@ -3,10 +3,12 @@
 {% block title %}Welcome to Intune{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Welcome to Intune 🎵</h1>
-    <p class="lead">Find your perfect match through music</p>
-    <a href="{% url 'login' %}" class="btn btn-success me-2">Login</a>
-    <a href="{% url 'register' %}" class="btn btn-outline-success">Register</a>
-</div>
+    <div class="text-center">
+        <div class="home-title">
+            <span class="i-heart">i
+                <span class="heart">❤︎</span>
+            </span>nTune
+        </div>
+        <a href="{% url 'register' %}" class ="home-button">Find your Duet - Register</a>
+    </div>
 {% endblock %}

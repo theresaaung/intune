@@ -1,11 +1,75 @@
-body {
-    background-color: #f8f9fa;
-    color: #333;
+.home-title {
+    font-size: 4rem;
+    font-weight: 700;
+    color:#f74346;
+    text-align: center;
+    margin-top: 80px;
 }
 
-/* Make the navbar logo stand out */
-.navbar-brand {
-    font-weight: bold;
+.i-heart {
+    position: relative;
+    display: inline-block;
+}
+
+.i-heart .heart {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color:#f74346;
+    font-size: 1.4rem;
+    display: block;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.home-button {
+    background-color: #adf2cc;
+    color: white;
     font-size: 1.5rem;
-    color: #1DB954 !important;  /* Spotify green — fits your app's theme */
+    padding: 15px 40px;
+    border: none;
+    display: block;
+    margin: 20px auto;
+    text-decoration: none;
+}
+
+.home-button:hover {
+    background-color: #5bf4a0;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+    z-index: 1000;
+    background-color: white;
+    border-top: 1px solid #ccc;
+
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.bottom-nav a:hover {
+    color:#5bf4a0;
+}
+
+body {
+    background-color: #dabcf5;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 0 70px 0;
+}
+
+.container {
+    background: transparent;
 }
