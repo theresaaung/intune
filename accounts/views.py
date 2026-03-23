@@ -61,8 +61,7 @@ def user_logout(request):
 
 @login_required
 def profile(request):
-    profile = UserProfile.objects.get(user=request.user)
-    
+    profile = UserProfile.objects.get(user=request.user) 
     context_dict = {'profile': profile}
     return render(request, 'accounts/profile.html', context_dict)
 
@@ -89,8 +88,9 @@ def delete_account(request):
         return redirect('home')
     return render(request, 'accounts/delete_account.html')
 
-# @login_required
-# def view_user(request, username):
-#     user = User.objects.get(username=username)
-#     profile = user.userprofile
-#     return render(request, 'accounts/view_user.html', {'profile': profile})
+@login_required
+def view_user(request, username):
+    user = User.objects.get(username=username)
+    profile = user.userprofile   
+    context_dict = {'profile': profile}
+    return render(request, 'accounts/view_user.html', context_dict)

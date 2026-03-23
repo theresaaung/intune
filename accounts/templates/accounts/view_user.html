@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Your Profile{% endblock %}
+{% block title %}{{ profile.display_name }}{% endblock %}
 
 {% block content %}
 <div class="text-center mt-5">
-    <h1>Your Profile</h1>
-    
+    <h1>{{ profile.display_name }}'s Profile</h1>
+
     {% if profile.profile_picture %}
         <img src="{{ profile.profile_picture.url }}" 
              class="img-fluid mb-3"
@@ -25,15 +25,17 @@
     <div class="text-start mx-auto" style="max-width: 500px;">
         <h5 class="mt-4">Details</h5>
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
-        <p><strong>Gender:</strong> {{ profile.get_gender_display }}</p>
-        <p><strong>Looking For:</strong> {{ profile.get_looking_for_display }}</p>
-        <p><strong>Matching Preference:</strong> {{ profile.get_matching_preference_display }}</p>
-        <h5 class="mt-4">Preferences</h5>
-        <p><strong>Preffered Age Range:</strong> {{ profile.preferred_min_age }}-{{ profile.preferred_max_age }}</p>
-        <p><strong>Preferred Gender:</strong> {{ profile.get_preferred_gender_display }}</p>
-        <p><strong>Preferred Location:</strong> {{ profile.preferred_location }}</p>
+                {% if profile.top_genre %}
+            <p><strong>Top Genres:</strong> {{ profile.top_genres|join:", " }}</p>
+        {% endif %}
+        {% if profile.top_artists %}
+            <p><strong>Top Artists:</strong> {{ profile.top_artists|join:", " }}</p>
+        {% endif %}
+        {% if profile.anthem_title %}
+            <p><strong>Current Anthem:</strong> "{{ profile.anthem_title }}" – {{ profile.anthem_artist }}</p>
+        {% endif %}
     </div>
-    <a href="{% url 'edit_profile' %}" class="btn btn-success me-2">Edit Profile</a>
-    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+    <a href="{% url 'matches' %}" class="btn btn-secondary">Back to Matches</a>
+    <a href="#" class="btn btn-secondary">Message</a>
 </div>
 {% endblock %}
