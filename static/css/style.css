@@ -1,7 +1,7 @@
 .home-title {
     font-size: 4rem;
     font-weight: 700;
-    color:#f74346;
+    color:#ef515e;
     text-align: center;
     margin-top: 80px;
 }
@@ -16,11 +16,20 @@
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    color:#f74346;
+    color:#ef515e;
     font-size: 1.4rem;
     display: block;
     line-height: 1;
     pointer-events: none;
+}
+
+.logo-at-top {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ef515e;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 .home-button {
@@ -63,13 +72,34 @@
     color:#5bf4a0;
 }
 
-body {
+.page-wrapper {
+    margin-top: 0;
+    padding-top: 0;
     background-color: #dabcf5;
     min-height: 100vh;
-    margin: 0;
-    padding: 0 0 70px 0;
+    padding: 10px 20px 140px;
 }
 
-.container {
-    background: transparent;
+.home-page .page-box {
+    background: none;
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+}
+
+.page-box {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 90%;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #dabcf5;
 }

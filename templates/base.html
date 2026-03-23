@@ -23,9 +23,16 @@
     </div>
 
     <!-- Page content -->
-    <div class="{% block page_class %}{% endblock %}">
-        {% block content %}
+    <div class="page-wrapper {% block page_class %}{% endblock %}">
+        {% block logo_at_top %}
+        <div class="logo-at-top">
+            inTune
+        </div>
         {% endblock %}
+        <div class="page-box">
+            {% block content %}
+            {% endblock %}
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
