@@ -1,3 +1,13 @@
+/* Home Page and Base Styling */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #dabcf5;
+}
+
 .home-title {
     font-size: 4rem;
     font-weight: 700;
@@ -90,16 +100,115 @@
 .page-box {
     background: white;
     border-radius: 20px;
-    padding: 30px;
+    padding: 25px;
     max-width: 90%;
     margin: 0 auto;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-    background-color: #dabcf5;
+/* Profile Styling */
+
+.profile-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.profile-left {
+    width: 40%;
+    text-align: center;
+}
+
+.profile-picture-wrapper {
+    background-color: #adf2cc;
+    border: black;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.profile-picture-wrapper img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.no-photo-placeholder {
+    width: 100%;
+    height: 500px;
+    background-color: #adf2cc;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+    font-weight: 700;
+}
+
+.profile-name-age {
+    margin-top: 15px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #8aa9f0;
+}
+
+.profile-location {
+    color: #8aa9f0;
+    opacity: 0.8;
+}
+
+.profile-right {
+    width: 60%;
+    color: #8aa9f0;
+    margin-left: 40px;
+    margin-top: 25px;
+}
+
+.profile-right h3 {
+    margin-top: 0;
+    color: #8aa9f0;
+    font-weight: 700;
+}
+
+.profile-right p {
+    margin-bottom: 18px;
+    line-height: 2.5;
+}
+
+.profile-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.base-btn {
+    background-color: #5bf4a0;
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-right: 20px;
+    width: 300px;
+    display: inline-block;
+    text-align: center;
+}
+
+.base-btn:hover {
+    background-color: #39c176;
+}
+
+.delete-account-btn {
+    background-color: #ef515e;
+    color: white;
+}
+
+.delete-account-btn:hover {
+    background-color: #eb2d3d;
 }
