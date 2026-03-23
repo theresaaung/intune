@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+ 
+{% block title %}Chat with {{ other_user.username }} — intune{% endblock %}
+ 
+{% block content %}
+<div class="page-wrapper chat-page-wrapper">
+ 
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <a href="{% url 'messaging:inbox' %}" class="back-btn">&#8592;</a>
+        <div class="chat-header-avatar">
+            {% if other_user.userprofile.photo %}
+                <img src="{{ other_user.userprofile.photo.url }}" alt="{{ other_user.username }}">
+            {% else %}
+                <div class="avatar-placeholder small">{{ other_user.username|first|upper }}</div>
+            {% endif %}
+        </div>
+        <div class="chat-header-info">
+            <span class="chat-header-name">{{ other_user.username }}</span>
+            <span class="chat-header-sub">Matched {{ match.created_at|timesince }} ago</span>
+        </div>
+        <a href="{% url 'matching:unmatch' match.id %}" class="unmatch-btn" onclick="return confirm('Unmatch with {{ other_user.username }}?')">✕</a>
+    </div>
+ 
+    <div class="messages-container" id="messages-container">
+        {% if messages %}
+            {% regroup messages by timestamp|date:"d M Y" as messages_by_day %}
+            {% for day_group in messages_by_day %}
+                <div class="date-divider">
+                    <span>{{ day_group.grouper }}</span>
+                </div>
+                {% for msg in day_group.list %}
+                <div class="message-bubble-wrap {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+                    <div class="message-bubble">
+                        <p>{{ msg.body }}</p>
+                        <span class="msg-time">
+                            {{ msg.timestamp|time:"H:i" }}
+                            {% if msg.sender == request.user %}
+                                {% if msg.read %}✓✓{% else %}✓{% endif %}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="empty-chat">
+                <div class="empty-icon">🎵</div>
+                <p>You matched! Break the ice ↓</p>
+            </div>
+        {% endif %}
+    </div>
+ 
+    <!-- Message Input -->
+    <div class="message-input-bar">
+        <form method="POST" action="{% url 'messaging:send_message' match.id %}" class="message-form">
+            {% csrf_token %}
+            <input
+                type="text"
+                name="body"
+                id="message-input"
+                class="message-input"
+                placeholder="Type a message..."
+                autocomplete="off"
+                maxlength="1000"
+                required
+            >
+            <button type="submit" class="send-btn">&#9658;</button>
+        </form>
+    </div>
+</div>
+ 
+<script>
+    // Scroll to bottom on load
+    const container = document.getElementById('messages-container');
+    container.scrollTop = container.scrollHeight;
+</script>
+{% endblock %}
+ 
