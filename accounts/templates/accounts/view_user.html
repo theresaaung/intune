@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+
 {% block title %}{{ profile.display_name }}{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>{{ profile.display_name }}'s Profile</h1>
-
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}" 
-             class="img-fluid mb-3"
-             style="width: 100%; max-width: 450px; height: 350px; object-fit: cover; border-radius: 12px;">
-    {% else %}
-        <div class="bg-secondary mb-3 d-flex align-items-center justify-content-center"
-             style="width: 100%; max-width: 450px; height: 350px; border-radius: 12px; color: white; font-size: 2rem;">
-            ?
+<div class="profile-container">
+    <div class="profile-left">
+        <div class="profile-picture-wrapper">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <div class="no-photo-placeholder">?</div>
+            {% endif %}
         </div>
-    {% endif %}
-    <h1 class="fw-bold mt-3">
+        <h2 class="profile-name-age">
         {{ profile.display_name }}, {{ profile.age }}
-    </h1>
-    <p class="text-muted">{{ profile.location }}</p>
-    <hr class="my-4">
+        </h2>
+        <p class="profile-location">{{ profile.location }}</p>
+    </div>
 
-    <div class="text-start mx-auto" style="max-width: 500px;">
-        <h5 class="mt-4">Details</h5>
+    <div class="profile-right">
+        <h3>Details</h3>
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
-                {% if profile.top_genre %}
+        {% if profile.top_genre %}
             <p><strong>Top Genres:</strong> {{ profile.top_genres|join:", " }}</p>
         {% endif %}
         {% if profile.top_artists %}
@@ -35,7 +34,10 @@
             <p><strong>Current Anthem:</strong> "{{ profile.anthem_title }}" – {{ profile.anthem_artist }}</p>
         {% endif %}
     </div>
-    <a href="{% url 'matches' %}" class="btn btn-secondary">Back to Matches</a>
-    <a href="#" class="btn btn-secondary">Message</a>
+
+    <div class="profile-buttons">
+        <a href="{% url 'matches' %}" class="base-btn">Back to Matches</a>
+        <a href="#" class="base-btn">Message</a>
+    </div>
 </div>
 {% endblock %}
