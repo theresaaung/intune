@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% load static %}
-<link rel="stylesheet" href="{% static 'accounts/profile.css' %}">
-<link rel="stylesheet" href="{% static 'accounts/accounts-base.css' %}">
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
 
 {% block title %}{{ profile.display_name }}{% endblock %}
 

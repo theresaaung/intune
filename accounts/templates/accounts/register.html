@@ -1,19 +1,39 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
+
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Register</h1>
-    <p class="lead">Create an Account</p>
-    {% if registered %}
+<h1 class="form-title">Register</h1>
+<p class="form-subtitle">Create an InTune Account</p>
+{% if registered %}
     <div class="alert alert-success">Registration successful!</div>
-    {% endif %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        <button class="btn btn-success" type="submit">Register</button>
-    </form>
-</div>
+{% endif %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-container">
+            <div class="form-left">
+                {% for field in user_form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="form-right">
+                {% for field in profile_form %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    <button class="base-btn" type="submit">Register</button>
+</form>
 {% endblock %}
