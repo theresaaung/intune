@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "intune",
     "accounts",
     "spotify",
+    "matching",
 ]
 
 MIDDLEWARE = [
