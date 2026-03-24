@@ -1,16 +1,38 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
+
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Edit Profile</h1>
-    <form method="POST" enctype="multipart/form-data" class="mt-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success me-2" type="submit">Save Changes</button>
-    </form>
-    <a href="{% url 'profile' %}" class="btn btn-secondary mt-3">Cancel</a>
-    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
-</div>
+<h1 class="base-title">Edit Profile</h1>
+<p class="base-subtitle">Edit Your Profile Here</p>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+        <div class="form-container">
+            <div class="form-left">
+                {% for field in form %}
+                    <div class="form-group">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <div class="form-btn-wrapper">
+                    <button class="base-btn" type="submit">Save Changes</button>
+                </div>
+            </div>
+            
+            <div class="form-right">
+                <div class="form-btn-wrapper">
+                    <a href="{% url 'profile' %}" class="base-btn">Cancel</a>
+                </div>
+                <div class="form-btn-wrapper">
+                    <a href="{% url 'delete_account' %}" class="base-btn delete-account-btn">Delete Account</a>
+                </div>
+            </div>
+        </div>
+</form>
 {% endblock %}
