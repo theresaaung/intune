@@ -77,30 +77,3 @@
     align-items: center;
     gap: 15px;
 }
-
-.base-btn {
-    background-color: #5bf4a0;
-    color: white;
-    border: none;
-    padding: 14px 32px;
-    border-radius: 40px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-right: 20px;
-    width: 300px;
-    display: inline-block;
-    text-align: center;
-}
-
-.base-btn:hover {
-    background-color: #39c176;
-}
-
-.delete-account-btn {
-    background-color: #ef515e;
-    color: white;
-}
-
-.delete-account-btn:hover {
-    background-color: #eb2d3d;
-}
