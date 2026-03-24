@@ -1,1 +1,26 @@
 /* Form Styling */
+.form-container {
+    max-width: 550px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #8aa9f0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-subtitle {
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
