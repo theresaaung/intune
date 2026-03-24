@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import UserProfile
+from spotify.models import SpotifyToken
 from django.contrib.auth.models import User
 
 # Create your views here.
@@ -62,7 +63,11 @@ def user_logout(request):
 @login_required
 def profile(request):
     profile = UserProfile.objects.get(user=request.user) 
-    context_dict = {'profile': profile}
+    spotify_connected = SpotifyToken.objects.filter(user=request.user).exists()
+    context_dict = {
+        'profile': profile,
+        'spotify_connected': spotify_connected,
+        }
     return render(request, 'accounts/profile.html', context_dict)
 
 @login_required
