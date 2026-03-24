@@ -27,9 +27,18 @@
     <!-- Bio & Music Details -->
     <div class="text-start mx-auto" style="max-width: 450px;">
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
-        <p><strong>Top Genre:</strong> {{ profile.top_genre }}</p>
-        <p><strong>Top Artists:</strong> {{ profile.top_artists }}</p>
-        <p><strong>Current Anthem:</strong> "{{ profile.anthem_title }}" – {{ profile.anthem_artist }}</p>
+
+        {% if spotify_data %}
+            <p><strong>Top Artists:</strong> {{ spotify_data.top_artists | join:", " }}</p>
+            <p><strong>Top Genres:</strong> {{ spotify_data.top_genres | join:", " }}</p>
+            {% if spotify_data.top_tracks %}
+                <p><strong>Current Anthem:</strong>
+                    "{{ spotify_data.top_tracks.0.name }}" – {{ spotify_data.top_tracks.0.artist }}
+                </p>
+            {% endif %}
+        {% else %}
+            <p class="text-muted fst-italic">No Spotify data linked yet.</p>
+        {% endif %}
     </div>
  
     <hr class="my-3 mx-auto" style="max-width: 450px;">
@@ -37,7 +46,7 @@
     <!-- Like / Pass Buttons -->
     <form method="POST">
         {% csrf_token %}
-        <input type="hidden" name="profile_id" value="{{ profile.id }}">
+        <input type="hidden" name="profile_id" value="{{ profile.user.id }}">
         <button type="submit" name="action" value="like" class="btn btn-success me-3">Like</button>
         <button type="submit" name="action" value="pass" class="btn btn-danger">Pass</button>
     </form>

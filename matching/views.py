@@ -1,26 +1,28 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib import messages #NEEDS LINKED TO MESSAGES
+from django.contrib import messages
 from .models import Match
 from accounts.models import UserProfile
+from spotify.models import SpotifyData
 from django.contrib.auth.decorators import login_required
 
-#@login_required ADD BACK LATER
+@login_required
 def find_match(request):
-    test_user = User.objects.first() # REMOVE LATER
     # Get profiles the current user has already swiped on
     already_swiped = Match.objects.filter(
-        #from_user=request.user CHANGE LATER
-        from_user=test_user
+        from_user=request.user
     ).values_list('to_user', flat=True)
 
     # Get the next profile to show (excluding themselves and already swiped)
     profile = UserProfile.objects.exclude(
-        #user=request.user CHANGE LATER
-        user=test_user 
+        user=request.user
     ).exclude(
         user__in=already_swiped
     ).first()
+
+    # Fetch Spotify data for the profile being shown
+    spotify_data = None
+    if profile:
+        spotify_data = SpotifyData.objects.filter(user=profile.user).first()
 
     if request.method == 'POST':
         profile_id = request.POST.get('profile_id')
@@ -28,8 +30,7 @@ def find_match(request):
 
         # Save the swipe
         Match.objects.create(
-            #from_user=request.user, CHANGE LATER
-            from_user=test_user,
+            from_user=request.user,
             to_user_id=profile_id,
             action=action
         )
@@ -38,15 +39,17 @@ def find_match(request):
         if action == 'like':
             mutual = Match.objects.filter(
                 from_user_id=profile_id,
-                #to_user=request.user, CHANGE LATER
-                to_user=test_user,
+                to_user=request.user,
                 action='like'
             ).exists()
 
             if mutual:
                 messages.success(request, "🎵 It's a Match! You're in tune!")
-                return redirect('messages')  # redirect to your messages NEEDS LINKED 
+                return redirect('find_match')
 
-        return redirect('find_match')  # load the next profile 
+        return redirect('find_match')
 
-    return render(request, 'find_match.html', {'profile': profile})
+    return render(request, 'find_match.html', {
+        'profile': profile,
+        'spotify_data': spotify_data,
+    })
