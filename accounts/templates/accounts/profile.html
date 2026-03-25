@@ -3,6 +3,7 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/profile.css' %}">
 {% endblock %}
 
 {% block title %}Your Profile{% endblock %}
@@ -35,6 +36,18 @@
         <p><strong>Preffered Age Range:</strong> {{ profile.preferred_min_age }}-{{ profile.preferred_max_age }}</p>
         <p><strong>Preferred Gender:</strong> {{ profile.get_preferred_gender_display }}</p>
         <p><strong>Preferred Location:</strong> {{ profile.preferred_location }}</p>
+    </div>
+
+    <div class="profile-gallery">
+        {% if photos %}
+            <h3>More Photos</h3>
+            <div class="photo-grid">
+                {% for photo in photos %}
+                <div class="photo-item">
+                    <img src="{{ photo.image.url }}" alt="Photo">
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <div class="profile-buttons">

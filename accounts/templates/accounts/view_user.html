@@ -3,6 +3,7 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/profile.css' %}">
 {% endblock %}
 
 {% block title %}{{ profile.display_name }}{% endblock %}
@@ -34,6 +35,18 @@
         {% endif %}
         {% if profile.anthem_title %}
             <p><strong>Current Anthem:</strong> "{{ profile.anthem_title }}" – {{ profile.anthem_artist }}</p>
+        {% endif %}
+    </div>
+
+    <div class="profile-gallery">
+        {% if photos %}
+            <h3>More Photos</h3>
+            <div class="photo-grid">
+                {% for photo in photos %}
+                <div class="photo-item">
+                    <img src="{{ photo.image.url }}" alt="Photo">
+                </div>
+            {% endfor %}
         {% endif %}
     </div>
 

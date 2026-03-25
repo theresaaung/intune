@@ -1,16 +1,54 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/form.css' %}">
+{% endblock %}
+
 {% block title %}Edit Profile{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Edit Profile</h1>
-    <form method="POST" enctype="multipart/form-data" class="mt-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-success me-2" type="submit">Save Changes</button>
-    </form>
-    <a href="{% url 'profile' %}" class="btn btn-secondary mt-3">Cancel</a>
-    <a href="{% url 'delete_account' %}" class="btn btn-danger">Delete Account</a>
+<div class="edit-profile-page">
+    <h1 class="base-title">Edit Profile</h1>
+    <p class="base-subtitle">Edit Your Profile Here</p>
+        <div class="form-container">
+            <div class="form-left">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label>{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <div class="form-btn-wrapper">
+                            <button class="base-btn" type="submit" name="save_profile">Save Changes</button>
+                        </div>
+                </form>
+            </div>
+            <div class="form-right">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <h3>Your Photos</h3>
+                        <div class="photo-grid">
+                            {% for photo in photos %}
+                                <div class="photo-item">
+                                    <img src="{{ photo.image.url }}" alt="Photo">
+                                    <a href="{% url 'delete_photo' photo.id %}" class="base-btn delete-account-btn">Delete</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="add-photo-wrapper">
+                            {{ photo_form.image }}
+                            <button type="submit" name="upload_photo" class="base-btn">Add Photo</button>
+                        </div>
+                        <div class="form-btn-wrapper">
+                            <a href="{% url 'profile' %}" class="base-btn">Cancel</a>
+                            <a href="{% url 'delete_account' %}" class="base-btn delete-account-btn">Delete Account</a>
+                        </div>
+                </form>
+            </div>
+        </div>
 </div>
 {% endblock %}
