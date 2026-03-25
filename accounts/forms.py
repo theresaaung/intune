@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Photo
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -26,3 +26,12 @@ class UserProfileForm(forms.ModelForm):
             'preferred_gender',
             'preferred_location',
         )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["profile_picture"].required = False
+
+class PhotoUploadForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = ["image"]

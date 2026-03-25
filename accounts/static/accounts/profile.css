@@ -76,3 +76,28 @@
     align-items: center;
     gap: 15px;
 }
+
+.profile-gallery {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.profile-gallery .photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.profile-gallery .photo-item img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.profile-gallery h3 {
+    margin-top: 0;
+    color: #8aa9f0;
+    font-weight: 700;
+}

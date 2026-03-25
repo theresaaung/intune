@@ -39,3 +39,22 @@
 .delete-account-btn:hover {
     background-color: #eb2d3d;
 }
+
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.photo-item {
+    position: relative;
+}
+
+.photo-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
