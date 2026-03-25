@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
- 
+
 {% block title %}Inbox — intune{% endblock %}
- 
+
 {% block content %}
 <div class="page-wrapper">
     <div class="logo-at-top">intune 🎵</div>
- 
+
     <div class="page-box">
         <div class="inbox-header">
             <h2 class="inbox-title">Messages</h2>
@@ -14,19 +14,19 @@
                 <span class="unread-badge">{{ unread_count }}</span>
             {% endif %}
         </div>
- 
+
         {% if conversations %}
             <ul class="conversation-list">
                 {% for convo in conversations %}
-                <li class="conversation-item {% if convo.has_unread %}unread{% endif %}">
-                    <a href="{% url 'messaging:conversation' convo.match.id %}" class="convo-link">
+                <li class="conversation-item {% if convo.unread_count %}unread{% endif %}">
+                    <a href="{% url 'messaging:conversation' convo.other_user.username %}" class="convo-link">
                         <div class="convo-avatar">
                             {% if convo.other_user.userprofile.photo %}
                                 <img src="{{ convo.other_user.userprofile.photo.url }}" alt="{{ convo.other_user.username }}">
                             {% else %}
                                 <div class="avatar-placeholder">{{ convo.other_user.username|first|upper }}</div>
                             {% endif %}
-                            {% if convo.has_unread %}
+                            {% if convo.unread_count %}
                                 <span class="online-dot"></span>
                             {% endif %}
                         </div>
@@ -35,7 +35,7 @@
                                 <span class="convo-name">{{ convo.other_user.username }}</span>
                                 <span class="convo-time">{{ convo.last_message.timestamp|timesince }} ago</span>
                             </div>
-                            <p class="convo-preview {% if convo.has_unread %}preview-bold{% endif %}">
+                            <p class="convo-preview {% if convo.unread_count %}preview-bold{% endif %}">
                                 {% if convo.last_message %}
                                     {% if convo.last_message.sender == request.user %}You: {% endif %}
                                     {{ convo.last_message.body|truncatechars:45 }}
@@ -58,6 +58,4 @@
         {% endif %}
     </div>
 </div>
- 
-{% include 'partials/bottom_nav.html' %}
 {% endblock %}

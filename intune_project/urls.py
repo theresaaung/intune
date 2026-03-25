@@ -25,8 +25,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('spotify/', include('spotify.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),  # add this
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('matching/', include('matching.urls')),
+    path('messaging/', include('messaging.urls', namespace='messaging')),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

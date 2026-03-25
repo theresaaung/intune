@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/profile.css' %}">
+{% endblock %}
+
 {% block title %}Your Profile{% endblock %}
 
 {% block content %}
+<h1 class="base-title">Profile</h1>
+<p class="base-subtitle">Your Profile</p>
 <div class="profile-container">
     <div class="profile-left">
         <div class="profile-picture-wrapper">
@@ -30,9 +38,25 @@
         <p><strong>Preferred Location:</strong> {{ profile.preferred_location }}</p>
     </div>
 
+    <div class="profile-gallery">
+        {% if photos %}
+            <h3>More Photos</h3>
+            <div class="photo-grid">
+                {% for photo in photos %}
+                <div class="photo-item">
+                    <img src="{{ photo.image.url }}" alt="Photo">
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
     <div class="profile-buttons">
         <a href="{% url 'edit_profile' %}" class="base-btn">Edit Profile</a>
-        <a href="#" class="base-btn">Spotify Stats</a>
+        {% if spotify_connected %}
+            <a href="#" class="base-btn">Spotify Stats</a>
+        {% else %}
+            <a href="#" class="base-btn">Connect Spotify</a>
+        {% endif %}
         <a href="{% url 'delete_account' %}" class="base-btn delete-account-btn">Delete Account</a>
     </div>
 </div>
