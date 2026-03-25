@@ -119,6 +119,10 @@ def delete_account(request):
 @login_required
 def view_user(request, username):
     user = User.objects.get(username=username)
-    profile = user.userprofile   
-    context_dict = {'profile': profile}
+    profile = user.userprofile  
+    photos = request.user.photos.all() 
+    context_dict = {
+        'profile': profile,
+        'photos': photos,
+                    }
     return render(request, 'accounts/view_user.html', context_dict)

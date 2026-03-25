@@ -38,6 +38,18 @@
         {% endif %}
     </div>
 
+    <div class="profile-gallery">
+        {% if photos %}
+            <h3>More Photos</h3>
+            <div class="photo-grid">
+                {% for photo in photos %}
+                <div class="photo-item">
+                    <img src="{{ photo.image.url }}" alt="Photo">
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
     <div class="profile-buttons">
         <a href="{% url 'matches' %}" class="base-btn">Back to Matches</a>
         <a href="#" class="base-btn">Message</a>
