@@ -64,9 +64,11 @@ def user_logout(request):
 def profile(request):
     profile = UserProfile.objects.get(user=request.user) 
     spotify_connected = SpotifyToken.objects.filter(user=request.user).exists()
+    photos = request.user.photos.all()
     context_dict = {
         'profile': profile,
         'spotify_connected': spotify_connected,
+        'photos': photos,
         }
     return render(request, 'accounts/profile.html', context_dict)
 
