@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+{% endblock %}
+
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="text-center mt-5">
-    <h1>Login</h1>
-    <p class="lead">Log In to Your Account</p>
-    {% if error %}
-    <div class="alert alert-danger">{{ error }}</div>
-    {% endif %}
+<h1 class="base-title">Login</h1>
+<p class="base-subtitle">Log Into Your Account</p>
+<div class="login-wrapper">
     <form method="POST" class="mt-3">
         {% csrf_token %}
-        <div class="mb-3">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <div class="form-group">
             <label>Username</label>
-            <input type="text" name="username" class="form-control">
+            <input type="text" name="username" class="form-control input">
         </div>
-        <div class="mb-3">
+        <div class="form-group">
             <label>Password</label>
-            <input type="password" name="password" class="form-control">
+            <input type="password" name="password" class="form-control input">
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <div class="form-btn-wrapper">
+            <button type="submit" class="base-btn">Login</button>
+        </div>
     </form>
 </div>
 {% endblock %}
