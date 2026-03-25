@@ -161,7 +161,7 @@
     margin-bottom: 20px;
 }
 
-.login-wrapper {
+.form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
