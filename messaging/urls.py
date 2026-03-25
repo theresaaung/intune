@@ -1,16 +1,10 @@
-from django import forms
-from .models import Message
+from django.urls import path
+from . import views
 
+app_name = 'messaging'
 
-class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = ['body']
-        widgets = {
-            'body': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Type a message…',
-            })
-        }
-        labels = {'body': ''}
+urlpatterns = [
+    path('inbox/', views.inbox, name='inbox'),
+    path('conversation/<str:username>/', views.conversation, name='conversation'),
+    path('notifications/', views.notifications, name='notifications'),
+]
