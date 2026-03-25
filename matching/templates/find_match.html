@@ -5,7 +5,9 @@
 {% block content %}
    
 <div class="text-center mt-4">
- 
+
+{% if profile %}
+
     <!-- Profile Photo -->
     {% if profile.profile_picture %}
         <img src="{{ profile.profile_picture.url }}"
@@ -40,6 +42,31 @@
             <p class="text-muted fst-italic">No Spotify data linked yet.</p>
         {% endif %}
     </div>
+
+    <hr class="my-3 mx-auto" style="max-width: 450px;">
+
+    <!-- Music Compatibility -->
+    {% if shared_genres or shared_artists %}
+    <div class="mx-auto text-start" style="max-width: 450px;">
+        <h6 class="fw-bold text-success">🎵 You two are in tune!</h6>
+        {% if shared_genres %}
+        <p class="mb-1">
+            <strong>Shared Genres:</strong>
+            {% for genre in shared_genres %}
+                <span class="badge bg-success me-1">{{ genre }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+        {% if shared_artists %}
+        <p class="mb-1">
+            <strong>Shared Artists:</strong>
+            {% for artist in shared_artists %}
+                <span class="badge bg-primary me-1">{{ artist }}</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
  
     <hr class="my-3 mx-auto" style="max-width: 450px;">
  
@@ -50,7 +77,21 @@
         <button type="submit" name="action" value="like" class="btn btn-success me-3">Like</button>
         <button type="submit" name="action" value="pass" class="btn btn-danger">Pass</button>
     </form>
- 
+
+{% else %}
+
+    <!-- No More Matches State -->
+    <div class="mx-auto mt-5" style="max-width: 450px;">
+        <div style="font-size: 4rem;">🎵</div>
+        <h3 class="fw-bold mt-3">You're all caught up!</h3>
+        <p class="text-muted">No new profiles to show right now. Check back later or see who you've already matched with.</p>
+        <hr>
+        <a href="{% url 'messaging:inbox' %}" class="btn btn-success me-2">💬 View Matches</a>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary">Go Home</a>
+    </div>
+
+{% endif %}
+
 </div>
 
 {% endblock %}
