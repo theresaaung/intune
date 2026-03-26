@@ -22,6 +22,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -32,7 +33,7 @@ SECRET_KEY = "django-insecure-n0twuc0ze9*1anehx*@22h8heiw-gne9ayq%h_vjjtaf6wessz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['intune.pythonanywhere.com', ]
 
 
 # Application definition
