@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "accounts",
     "spotify",
     "matching",
+    "messaging",
 ]
 
 MIDDLEWARE = [

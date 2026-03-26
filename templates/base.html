@@ -44,8 +44,8 @@
         <a href="{% url 'home' %}">Home</a>
         {% if user.is_authenticated %}
             <a href="{% url 'profile' %}">Profile</a>
-            <a href="#">Match</a>
-            <a href="#">Chats</a>
+            <a href="{% url 'find_match' %}">Match</a>
+            <a href="{% url 'messaging:inbox' %}">Chats</a>
             <a href="{% url 'logout' %}">Logout</a>
         {% else %}
             <a href="{% url 'login' %}">Login</a>

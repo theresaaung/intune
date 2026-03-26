@@ -3,7 +3,7 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
-<link rel="stylesheet" href="{% static 'accounts/form.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/form.css' %}?v=2">
 {% endblock %}
 
 {% block title %}Edit Profile{% endblock %}
@@ -18,8 +18,29 @@
                     {% csrf_token %}
                         {% for field in form %}
                             <div class="form-group">
-                                <label>{{ field.label }}</label>
-                                {{ field }}
+                                {% if field.name == "preferred_min_age" %}
+                                    {{ field.as_hidden }}
+                                    <label>Preferred Age Range</label>
+                                    <input type="range"
+                                            id="min-age"
+                                            min="18"
+                                            max="100"
+                                            value="{{ field.value }}">
+                                {% elif field.name == "preferred_max_age" %}
+                                    {{ field.as_hidden }}
+                                    <input type="range"
+                                            id="max-age"
+                                            min="18"
+                                            max="100"
+                                            value="{{ field.value }}">
+                                    <p id="age-display"></p>
+                                {% else %}
+                                    <label>{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.name == "bio" %}
+                                        <p id="bio-counter" class="bio-counter">0 / 300</p>
+                                    {% endif %}
+                                {% endif %}
                             </div>
                         {% endfor %}
                         <div class="form-btn-wrapper">
@@ -43,6 +64,7 @@
                             {{ photo_form.image }}
                             <button type="submit" name="upload_photo" class="base-btn">Add Photo</button>
                         </div>
+                        <div id="photo-preview"></div>
                         <div class="form-btn-wrapper">
                             <a href="{% url 'profile' %}" class="base-btn">Cancel</a>
                             <a href="{% url 'delete_account' %}" class="base-btn delete-account-btn">Delete Account</a>
@@ -50,5 +72,6 @@
                 </form>
             </div>
         </div>
+    <script src="{% static 'accounts/edit_profile.js' %}"></script>
 </div>
 {% endblock %}

@@ -2,16 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.http import JsonResponse
 
 from matching.models import Match
 from .models import Message, Notification
 from .forms import MessageForm
 
 
-def get_match_for_users(user1, user2):
-    return Match.objects.filter(
-        Q(user1=user1, user2=user2) | Q(user1=user2, user2=user1)
-    ).first()
+def get_mutual_match(user1, user2):
+    """Returns a Match object only if both users liked each other."""
+    user1_liked = Match.objects.filter(from_user=user1, to_user=user2, action='like').exists()
+    user2_liked = Match.objects.filter(from_user=user2, to_user=user1, action='like').exists()
+    if user1_liked and user2_liked:
+        return Match.objects.filter(from_user=user1, to_user=user2, action='like').first()
+    return None
 
 
 def create_notification(user, notification_type, text, link=''):
@@ -25,22 +29,31 @@ def create_notification(user, notification_type, text, link=''):
 
 @login_required
 def inbox(request):
-    matches = Match.objects.filter(
-        Q(user1=request.user) | Q(user2=request.user)
-    ).order_by('-created_at')
+    liked_you_ids = Match.objects.filter(
+        to_user=request.user, action='like'
+    ).values_list('from_user', flat=True)
+
+    mutual_ids = Match.objects.filter(
+        from_user=request.user,
+        to_user__in=liked_you_ids,
+        action='like'
+    ).values_list('to_user', flat=True)
+
+    mutual_users = User.objects.filter(id__in=mutual_ids)
 
     conversations = []
-    for match in matches:
-        other_user = match.user2 if match.user1 == request.user else match.user1
+    for other_user in mutual_users:
+        match = Match.objects.filter(
+            from_user=request.user, to_user=other_user, action='like'
+        ).first()
 
-        last_message = (
-            Message.objects.filter(match=match)
-            .order_by('-timestamp')
-            .first()
-        )
+        last_message = Message.objects.filter(
+            Q(sender=request.user, recipient=other_user) |
+            Q(sender=other_user, recipient=request.user)
+        ).order_by('-timestamp').first()
 
         unread_count = Message.objects.filter(
-            match=match,
+            sender=other_user,
             recipient=request.user,
             is_read=False,
         ).count()
@@ -63,24 +76,32 @@ def inbox(request):
         is_read=False,
     ).update(is_read=True)
 
-    return render(request, 'messaging/inbox.html', {'conversations': conversations})
+    total_unread = sum(c['unread_count'] for c in conversations)
+
+    return render(request, 'inbox.html', {
+        'conversations': conversations,
+        'unread_count': total_unread,
+    })
 
 
 @login_required
 def conversation(request, username):
     other_user = get_object_or_404(User, username=username)
 
-    match = get_match_for_users(request.user, other_user)
+    match = get_mutual_match(request.user, other_user)
     if not match:
-        return render(request, 'messaging/not_matched.html', {'other_user': other_user})
+        return render(request, 'not_matched.html', {'other_user': other_user})
 
     Message.objects.filter(
-        match=match,
+        sender=other_user,
         recipient=request.user,
         is_read=False,
     ).update(is_read=True)
 
-    messages_qs = Message.objects.filter(match=match).order_by('timestamp')
+    messages_qs = Message.objects.filter(
+        Q(sender=request.user, recipient=other_user) |
+        Q(sender=other_user, recipient=request.user)
+    ).order_by('timestamp')
 
     form = MessageForm()
 
@@ -108,18 +129,17 @@ def conversation(request, username):
         'form': form,
         'match': match,
     }
-    return render(request, 'messaging/conversation.html', context)
+    return render(request, 'conversation.html', context)
 
 
 @login_required
 def notifications(request):
     notifs = Notification.objects.filter(user=request.user).order_by('-timestamp')
     notifs.filter(is_read=False).update(is_read=True)
-    return render(request, 'messaging/notifications.html', {'notifications': notifs})
+    return render(request, 'notifications.html', {'notifications': notifs})
 
 
 @login_required
 def unread_notification_count(request):
-    from django.http import JsonResponse
     count = Notification.objects.filter(user=request.user, is_read=False).count()
     return JsonResponse({'unread_count': count})

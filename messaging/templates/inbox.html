@@ -33,7 +33,13 @@
                         <div class="convo-info">
                             <div class="convo-top-row">
                                 <span class="convo-name">{{ convo.other_user.username }}</span>
-                                <span class="convo-time">{{ convo.last_message.timestamp|timesince }} ago</span>
+                                <span class="convo-time">
+                                    {% if convo.last_message %}
+                                        {{ convo.last_message.timestamp|timesince }} ago
+                                    {% else %}
+                                        New match!
+                                    {% endif %}
+                                </span>
                             </div>
                             <p class="convo-preview {% if convo.unread_count %}preview-bold{% endif %}">
                                 {% if convo.last_message %}
@@ -53,7 +59,7 @@
                 <div class="empty-icon">💬</div>
                 <p class="empty-text">No conversations yet.</p>
                 <p class="empty-sub">Start matching to unlock messages!</p>
-                <a href="{% url 'matching:browse' %}" class="home-button">Find Matches</a>
+                <a href="{% url 'find_match' %}" class="home-button">Find Matches</a>
             </div>
         {% endif %}
     </div>
