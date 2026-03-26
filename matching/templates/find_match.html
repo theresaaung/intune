@@ -1,87 +1,125 @@
 {% extends 'base.html' %}
- 
+
 {% block title %}Find a Match{% endblock %}
 
 {% block content %}
-   
-<div class="text-center mt-4">
 
+<div class="text-center mt-4 px-3">
 {% if profile %}
 
-    <!-- Profile Photo -->
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}"
-             class="img-fluid mb-3"
-             style="width: 100%; max-width: 450px; height: 350px; object-fit: cover; border-radius: 12px;">
-    {% else %}
-        <div class="bg-secondary mb-3 d-flex align-items-center justify-content-center mx-auto"
-             style="max-width: 450px; height: 350px; border-radius: 12px; color: white; font-size: 2rem;">
-            ?
-        </div>
-    {% endif %}
- 
-    <!-- Name & Age -->
-    <h2 class="fw-bold mt-2">{{ profile.display_name }}, {{ profile.age }}</h2>
-    <p class="text-muted">{{ profile.location }}</p>
- 
-    <hr class="my-3 mx-auto" style="max-width: 450px;">
- 
-    <!-- Bio & Music Details -->
-    <div class="text-start mx-auto" style="max-width: 450px;">
-        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+    <!-- Card -->
+    <div class="mx-auto position-relative"
+         style="max-width: 420px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.15);">
 
+        <!-- Profile Photo -->
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}"
+                 style="width: 100%; height: 480px; object-fit: cover; display: block;">
+        {% else %}
+            <div class="bg-secondary d-flex align-items-center justify-content-center"
+                 style="width: 100%; height: 480px; color: white; font-size: 5rem;">
+                ?
+            </div>
+        {% endif %}
+
+        <!-- Gradient Overlay with Name -->
+        <div class="position-absolute bottom-0 start-0 end-0 text-white text-start p-3"
+             style="background: linear-gradient(transparent, rgba(0,0,0,0.75));">
+            <h2 class="fw-bold mb-0" style="font-size: 1.8rem;">
+                {{ profile.display_name }}, {{ profile.age }}
+            </h2>
+            <p class="mb-0" style="opacity: 0.85;">📍 {{ profile.location }}</p>
+        </div>
+    </div>
+
+    <!-- Info Card -->
+    <div class="mx-auto mt-3 text-start p-3"
+         style="max-width: 420px; background: #f8f9fa; border-radius: 16px;">
+
+        <!-- Bio -->
+        {% if profile.bio %}
+        <p class="mb-2"><strong>About:</strong> {{ profile.bio }}</p>
+        {% endif %}
+
+        <!-- Spotify Data -->
         {% if spotify_data %}
-            <p><strong>Top Artists:</strong> {{ spotify_data.top_artists | join:", " }}</p>
-            <p><strong>Top Genres:</strong> {{ spotify_data.top_genres | join:", " }}</p>
             {% if spotify_data.top_tracks %}
-                <p><strong>Current Anthem:</strong>
-                    "{{ spotify_data.top_tracks.0.name }}" – {{ spotify_data.top_tracks.0.artist }}
-                </p>
+            <div class="d-flex align-items-center mb-2 p-2 rounded"
+                 style="background: #1DB954; color: white;">
+                <span style="font-size: 1.3rem; margin-right: 8px;">🎵</span>
+                <div>
+                    <div style="font-size: 0.7rem; opacity: 0.85;">CURRENT ANTHEM</div>
+                    <strong style="font-size: 0.95rem;">
+                        "{{ spotify_data.top_tracks.0.name }}" – {{ spotify_data.top_tracks.0.artist }}
+                    </strong>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if spotify_data.top_artists %}
+            <p class="mb-1"><strong>Top Artists:</strong>
+                <span class="text-muted">{{ spotify_data.top_artists|join:", " }}</span>
+            </p>
+            {% endif %}
+
+            {% if spotify_data.top_genres %}
+            <p class="mb-2"><strong>Genres:</strong>
+                {% for genre in spotify_data.top_genres %}
+                    <span class="badge me-1" style="background:#eee; color:#333;">{{ genre }}</span>
+                {% endfor %}
+            </p>
             {% endif %}
         {% else %}
-            <p class="text-muted fst-italic">No Spotify data linked yet.</p>
+            <p class="text-muted fst-italic mb-2">No Spotify data linked yet.</p>
+        {% endif %}
+
+        <!-- Music Compatibility -->
+        {% if shared_genres or shared_artists %}
+        <div class="mt-2 p-2 rounded" style="background: #d4edda; border-left: 4px solid #28a745;">
+            <p class="mb-1 fw-bold text-success">🎵 You two are in tune!</p>
+            {% if shared_genres %}
+            <p class="mb-1" style="font-size: 0.9rem;">
+                <strong>Shared Genres:</strong>
+                {% for genre in shared_genres %}
+                    <span class="badge bg-success me-1">{{ genre }}</span>
+                {% endfor %}
+            </p>
+            {% endif %}
+            {% if shared_artists %}
+            <p class="mb-0" style="font-size: 0.9rem;">
+                <strong>Shared Artists:</strong>
+                {% for artist in shared_artists %}
+                    <span class="badge bg-primary me-1">{{ artist }}</span>
+                {% endfor %}
+            </p>
+            {% endif %}
+        </div>
         {% endif %}
     </div>
 
-    <hr class="my-3 mx-auto" style="max-width: 450px;">
-
-    <!-- Music Compatibility -->
-    {% if shared_genres or shared_artists %}
-    <div class="mx-auto text-start" style="max-width: 450px;">
-        <h6 class="fw-bold text-success">🎵 You two are in tune!</h6>
-        {% if shared_genres %}
-        <p class="mb-1">
-            <strong>Shared Genres:</strong>
-            {% for genre in shared_genres %}
-                <span class="badge bg-success me-1">{{ genre }}</span>
-            {% endfor %}
-        </p>
-        {% endif %}
-        {% if shared_artists %}
-        <p class="mb-1">
-            <strong>Shared Artists:</strong>
-            {% for artist in shared_artists %}
-                <span class="badge bg-primary me-1">{{ artist }}</span>
-            {% endfor %}
-        </p>
-        {% endif %}
-    </div>
-    {% endif %}
- 
-    <hr class="my-3 mx-auto" style="max-width: 450px;">
- 
     <!-- Like / Pass Buttons -->
     <form method="POST">
         {% csrf_token %}
         <input type="hidden" name="profile_id" value="{{ profile.user.id }}">
-        <button type="submit" name="action" value="like" class="btn btn-success me-3">Like</button>
-        <button type="submit" name="action" value="pass" class="btn btn-danger">Pass</button>
+        <div class="d-flex justify-content-center align-items-center gap-4 mt-4 mb-5">
+            <button type="submit" name="action" value="pass"
+                    class="btn btn-light rounded-circle shadow"
+                    style="width: 64px; height: 64px; font-size: 1.6rem; border: 2px solid #dc3545;">
+                ✕
+            </button>
+            <button type="submit" name="action" value="like"
+                    class="btn btn-success rounded-circle shadow"
+                    style="width: 80px; height: 80px; font-size: 2rem;">
+                ♥
+            </button>
+        </div>
     </form>
 
 {% else %}
 
-    <!-- No More Matches State -->
-    <div class="mx-auto mt-5" style="max-width: 450px;">
+    <!-- No More Matches -->
+    <div class="mx-auto mt-5 p-4 rounded-4 shadow-sm"
+         style="max-width: 420px; background: #f8f9fa;">
         <div style="font-size: 4rem;">🎵</div>
         <h3 class="fw-bold mt-3">You're all caught up!</h3>
         <p class="text-muted">No new profiles to show right now. Check back later or see who you've already matched with.</p>

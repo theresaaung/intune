@@ -74,6 +74,7 @@ def find_match(request):
 
             if mutual:
                 messages.success(request, "🎵 It's a Match! You're in tune!")
+                return redirect('messaging:inbox')
 
         return redirect('find_match')
 
