@@ -140,6 +140,204 @@ class Command(BaseCommand):
                     ],
                 },
             },
+
+            # --- New users with overlapping taste for testing the matching algorithm ---
+
+            # High overlap with testuser (Indie + Folk + shared artists)
+            {
+                'username': 'elena',
+                'email': 'elena@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Elena',
+                    'bio': 'Folk festivals and rainy days 🌧️',
+                    'age': 24,
+                    'gender': 'female',
+                    'location': 'Bristol',
+                    'looking_for': 'romantic',
+                    'matching_preference': 'top_artists',
+                    'preferred_min_age': 22,
+                    'preferred_max_age': 30,
+                    'preferred_gender': 'prefer_not_to_say',
+                    'preferred_location': 'Bristol',
+                },
+                'spotify': {
+                    'top_artists': ['Bon Iver', 'Sufjan Stevens', 'Fleet Foxes'],
+                    'top_genres': ['Folk', 'Indie', 'Chamber Pop'],
+                    'top_tracks': [
+                        {'name': 'Skinny Love', 'artist': 'Bon Iver'},
+                        {'name': 'Chicago', 'artist': 'Sufjan Stevens'},
+                    ],
+                },
+            },
+
+            # Medium overlap with testuser (Indie + Alternative, different artists)
+            {
+                'username': 'finn',
+                'email': 'finn@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Finn',
+                    'bio': 'Vinyl collector and part-time dreamer 🎶',
+                    'age': 27,
+                    'gender': 'male',
+                    'location': 'Edinburgh',
+                    'looking_for': 'both',
+                    'matching_preference': 'genre',
+                    'preferred_min_age': 22,
+                    'preferred_max_age': 32,
+                    'preferred_gender': 'prefer_not_to_say',
+                    'preferred_location': '',
+                },
+                'spotify': {
+                    'top_artists': ['Radiohead', 'Arcade Fire', 'The National'],
+                    'top_genres': ['Alternative', 'Indie', 'Post-Rock'],
+                    'top_tracks': [
+                        {'name': 'Karma Police', 'artist': 'Radiohead'},
+                        {'name': 'Wake Up', 'artist': 'Arcade Fire'},
+                    ],
+                },
+            },
+
+            # High overlap with alice (Indie + Alt-Rock + shared artists)
+            {
+                'username': 'grace',
+                'email': 'grace@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Grace',
+                    'bio': 'Arctic Monkeys changed my life 🎸',
+                    'age': 23,
+                    'gender': 'female',
+                    'location': 'Manchester',
+                    'looking_for': 'romantic',
+                    'matching_preference': 'top_artists',
+                    'preferred_min_age': 21,
+                    'preferred_max_age': 29,
+                    'preferred_gender': 'prefer_not_to_say',
+                    'preferred_location': 'Manchester',
+                },
+                'spotify': {
+                    'top_artists': ['Arctic Monkeys', 'The 1975', 'Swim Deep'],
+                    'top_genres': ['Indie', 'Alt-Rock', 'Britpop'],
+                    'top_tracks': [
+                        {'name': 'R U Mine?', 'artist': 'Arctic Monkeys'},
+                        {'name': 'Somebody Else', 'artist': 'The 1975'},
+                    ],
+                },
+            },
+
+            # High overlap with bob (Hip-Hop + R&B + shared artists)
+            {
+                'username': 'hassan',
+                'email': 'hassan@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Hassan',
+                    'bio': 'Hip-hop is poetry 🎤',
+                    'age': 25,
+                    'gender': 'male',
+                    'location': 'Birmingham',
+                    'looking_for': 'both',
+                    'matching_preference': 'genre',
+                    'preferred_min_age': 20,
+                    'preferred_max_age': 30,
+                    'preferred_gender': 'prefer_not_to_say',
+                    'preferred_location': '',
+                },
+                'spotify': {
+                    'top_artists': ['Kendrick Lamar', 'J. Cole', 'Frank Ocean'],
+                    'top_genres': ['Hip-Hop', 'R&B', 'Conscious Rap'],
+                    'top_tracks': [
+                        {'name': 'Alright', 'artist': 'Kendrick Lamar'},
+                        {'name': 'No Role Modelz', 'artist': 'J. Cole'},
+                    ],
+                },
+            },
+
+            # High overlap with charlie (Electronic + House + shared artists)
+            {
+                'username': 'iris',
+                'email': 'iris@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Iris',
+                    'bio': 'Rave culture and ambient soundscapes 🌀',
+                    'age': 26,
+                    'gender': 'female',
+                    'location': 'London',
+                    'looking_for': 'platonic',
+                    'matching_preference': 'genre',
+                    'preferred_min_age': 22,
+                    'preferred_max_age': 34,
+                    'preferred_gender': 'prefer_not_to_say',
+                    'preferred_location': 'London',
+                },
+                'spotify': {
+                    'top_artists': ['Four Tet', 'Burial', 'Aphex Twin'],
+                    'top_genres': ['Electronic', 'House', 'Ambient'],
+                    'top_tracks': [
+                        {'name': 'Moth', 'artist': 'Four Tet'},
+                        {'name': 'Archangel', 'artist': 'Burial'},
+                    ],
+                },
+            },
+
+            # Low overlap with everyone — used to test that they appear last
+            {
+                'username': 'jake',
+                'email': 'jake@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Jake',
+                    'bio': 'Country roads and campfires 🤠',
+                    'age': 29,
+                    'gender': 'male',
+                    'location': 'Cardiff',
+                    'looking_for': 'romantic',
+                    'matching_preference': 'top_artists',
+                    'preferred_min_age': 24,
+                    'preferred_max_age': 35,
+                    'preferred_gender': 'female',
+                    'preferred_location': '',
+                },
+                'spotify': {
+                    'top_artists': ['Johnny Cash', 'Willie Nelson', 'Dolly Parton'],
+                    'top_genres': ['Country', 'Americana', 'Bluegrass'],
+                    'top_tracks': [
+                        {'name': 'Ring of Fire', 'artist': 'Johnny Cash'},
+                        {'name': 'On the Road Again', 'artist': 'Willie Nelson'},
+                    ],
+                },
+            },
+
+            # Overlaps with both testuser AND alice (Indie + Alt-Rock + Folk crossover)
+            {
+                'username': 'kate',
+                'email': 'kate@test.com',
+                'password': 'testpass123',
+                'profile': {
+                    'display_name': 'Kate',
+                    'bio': 'Genre fluid — from folk to noise rock 🎵',
+                    'age': 25,
+                    'gender': 'female',
+                    'location': 'Glasgow',
+                    'looking_for': 'both',
+                    'matching_preference': 'top_artists',
+                    'preferred_min_age': 22,
+                    'preferred_max_age': 32,
+                    'preferred_gender': 'prefer_not_to_say',
+                    'preferred_location': '',
+                },
+                'spotify': {
+                    'top_artists': ['Radiohead', 'Bon Iver', 'Arctic Monkeys'],
+                    'top_genres': ['Indie', 'Alternative', 'Folk'],
+                    'top_tracks': [
+                        {'name': 'Karma Police', 'artist': 'Radiohead'},
+                        {'name': 'Do I Wanna Know?', 'artist': 'Arctic Monkeys'},
+                    ],
+                },
+            },
         ]
 
         self.stdout.write('Creating test users...')
@@ -165,4 +363,6 @@ class Command(BaseCommand):
         self.stdout.write('')
         self.stdout.write(self.style.SUCCESS('Done! Test accounts ready:'))
         self.stdout.write('  All passwords: testpass123')
-        self.stdout.write('  Users: alice, bob, charlie, dana, testuser')
+        self.stdout.write(
+            '  Users: alice, bob, charlie, dana, testuser, elena, finn, grace, hassan, iris, jake, kate'
+        )

@@ -20,7 +20,7 @@
             <span class="chat-header-name">{{ other_user.username }}</span>
             <span class="chat-header-sub">Matched {{ match.created_at|timesince }} ago</span>
         </div>
-        <a href="{% url 'matching:unmatch' match.id %}" class="unmatch-btn" onclick="return confirm('Unmatch with {{ other_user.username }}?')">✕</a>
+        <a href="#" class="unmatch-btn" onclick="return confirm('Unmatch with {{ other_user.username }}?')">✕</a>
     </div>
  
     <div class="messages-container" id="messages-container">
@@ -54,7 +54,7 @@
  
     <!-- Message Input -->
     <div class="message-input-bar">
-        <form method="POST" action="{% url 'messaging:send_message' match.id %}" class="message-form">
+        <form method="POST" action="{% url 'messaging:conversation' other_user.username %}" class="message-form">
             {% csrf_token %}
             <input
                 type="text"
