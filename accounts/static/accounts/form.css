@@ -65,3 +65,7 @@
     align-items: center;
     gap: 15px;
 }
+
+input[type="range"] {
+    accent-color: #5bf4a0;
+}

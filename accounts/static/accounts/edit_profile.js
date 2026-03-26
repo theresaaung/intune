@@ -1,4 +1,4 @@
-//Photo Preview
+//Photo preview
 document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.querySelector("#id_image");
     const preview = document.querySelector("#photo-preview");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//Bio Character Count
+//Bio character count
 document.addEventListener("DOMContentLoaded", () => {
     const bio = document.querySelector("#id_bio");
     const counter = document.querySelector("#bio-counter");
@@ -30,3 +30,27 @@ document.addEventListener("DOMContentLoaded", () => {
         update();
     }
 });
+
+//Slider for age range
+document.addEventListener("DOMContentLoaded", () => {
+    const minAge = document.querySelector("#min-age");
+    const maxAge = document.querySelector("#max-age");
+    const display = document.querySelector("#age-display");
+    const hiddenMin = document.querySelector("input[name='preferred_min_age']")
+    const hiddenMax = document.querySelector("input[name='preferred_max_age']")
+    if (minAge && maxAge && display && hiddenMin && hiddenMax) {
+        const update = () => {
+            let min = parseInt(minAge.value);
+            let max = parseInt(maxAge.value);
+            if (min > max) {
+                [minAge.value, maxAge.value] = [max, min];
+            }
+            display.textContent = `${minAge.value} - ${maxAge.value}`;
+            hiddenMin.value = minAge.value;
+            hiddenMax.value = maxAge.value;
+        };
+        minAge.addEventListener("input", update);
+        maxAge.addEventListener("input", update);
+        update();
+    }
+})
