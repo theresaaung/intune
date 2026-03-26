@@ -43,6 +43,7 @@
                             {{ photo_form.image }}
                             <button type="submit" name="upload_photo" class="base-btn">Add Photo</button>
                         </div>
+                        <div id="photo-preview"></div>
                         <div class="form-btn-wrapper">
                             <a href="{% url 'profile' %}" class="base-btn">Cancel</a>
                             <a href="{% url 'delete_account' %}" class="base-btn delete-account-btn">Delete Account</a>
@@ -50,5 +51,6 @@
                 </form>
             </div>
         </div>
+    <script src="{% static 'accounts/edit_profile.js' %}"></script>
 </div>
 {% endblock %}
