@@ -17,3 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+//Bio Character Count
+document.addEventListener("DOMContentLoaded", () => {
+    const bio = document.querySelector("#id_bio");
+    const counter = document.querySelector("#bio-counter");
+    if (bio && counter) {
+        const update = () => {
+            counter.textContent = `${bio.value.length} / 300`;
+        };
+        bio.addEventListener("input", update);
+        update();
+    }
+});

@@ -20,6 +20,9 @@
                             <div class="form-group">
                                 <label>{{ field.label }}</label>
                                 {{ field }}
+                                {% if field.name == "bio" %}
+                                    <p id="bio-counter" class="bio-counter">0 / 300</p>
+                                {% endif %}
                             </div>
                         {% endfor %}
                         <div class="form-btn-wrapper">
