@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-n0twuc0ze9*1anehx*@22h8heiw-gne9ayq%h_vjjtaf6wessz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['theresaaung.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['intune.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
