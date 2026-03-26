@@ -27,9 +27,6 @@
     <div class="profile-right">
         <h3>Details</h3>
         <p><strong>Bio:</strong> {{ profile.bio }}</p>
-        {% if profile.top_genre %}
-            <p><strong>Top Genres:</strong> {{ profile.top_genres|join:", " }}</p>
-        {% endif %}
         {% if profile.top_artists %}
             <p><strong>Top Artists:</strong> {{ profile.top_artists|join:", " }}</p>
         {% endif %}
