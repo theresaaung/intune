@@ -10,9 +10,21 @@
 
 .form-left,
 .form-right {
-    width: 50%;
     flex: 1;
-    min-width: 350px;
+    min-width: 280px;
+}
+
+@media (max-width: 600px) {
+    .form-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-left,
+    .form-right {
+        width: 100%;
+        min-width: unset;
+    }
 }
 
 .form-right h3 {
@@ -55,15 +67,18 @@
     align-items: center;
     justify-content: center;
     margin-top: 40px;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .edit-profile-page .form-right {
     display: flex;
     flex: 1;
-    min-width: 350px;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    align-items: stretch;
 }
 
 input[type="range"] {
