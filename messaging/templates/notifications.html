@@ -19,7 +19,7 @@
             <ul class="notification-list">
                 {% for notif in notifications %}
                 <li class="notif-item {% if not notif.read %}notif-unread{% endif %}">
-                    <a href="{% if notif.type == 'new_message' %}{% url 'messaging:conversation' notif.related_match_id %}{% elif notif.type == 'new_match' %}{% url 'matching:profile' notif.related_user_id %}{% else %}#{% endif %}"
+                   <a href="{% if notif.type == 'new_message' %}{% url 'messaging:conversation' notif.related_match_id %}{% else %}#{% endif %}">
                        class="notif-link">
                         <div class="notif-icon">
                             {% if notif.type == 'new_match' %}
