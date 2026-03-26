@@ -21,23 +21,22 @@
                 <li class="notif-item {% if not notif.read %}notif-unread{% endif %}">
                     <a href="{% if notif.type == 'new_message' %}{% url 'messaging:conversation' notif.related_match_id %}{% else %}#{% endif %}" class="notif-link">
                         <div class="notif-icon">
-                            {% if notif.type == 'new_match' %}
+                            {% if notif.notification_type == 'new_match' %}
                                 💚
-                            {% elif notif.type == 'new_message' %}
+                            {% elif notif.notification_type == 'new_message' %}
                                 💬
                             {% else %}
                                 🔔
                             {% endif %}
                         </div>
                         <div class="notif-content">
-                            <p class="notif-text">
-                                {% if notif.type == 'new_match' %}
-                                    You and <strong>{{ notif.related_user.username }}</strong> matched!
-                                {% elif notif.type == 'new_message' %}
-                                    <strong>{{ notif.related_user.username }}</strong> sent you a message.
-                                {% else %}
-                                    {{ notif.message }}
-                                {% endif %}
+                            <p class="notif-text">{{ notif.text }}</p>
+                            <a href="{{ notif.link|default:'#' }}" class="notif-link"></a>
+                            {% if notif.notification_type == 'new_match' %}
+                                You and <strong>{{ notif.related_user.username }}</strong> matched!
+                            {% elif notif.notification_type == 'new_message' %}
+                                <strong>{{ notif.related_user.username }}</strong> sent you a message.
+                            {% endif %}
                             </p>
                             <span class="notif-time">{{ notif.timestamp|timesince }} ago</span>
                         </div>

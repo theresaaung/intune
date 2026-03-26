@@ -28,6 +28,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('matching/', include('matching.urls')),
     path('messaging/', include('messaging.urls', namespace='messaging')),
+    path('matching/', include('matching.urls')),
 ]
 
 

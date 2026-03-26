@@ -143,3 +143,40 @@ def notifications(request):
 def unread_notification_count(request):
     count = Notification.objects.filter(user=request.user, is_read=False).count()
     return JsonResponse({'unread_count': count})
+
+@login_required
+def send_message(request, match_id):
+    match = get_object_or_404(Match, id=match_id)
+    
+    # make sure the user is part of this match
+    if request.user != match.user1 and request.user != match.user2:
+        return redirect('messaging:inbox')
+    
+    if request.method == 'POST':
+        body = request.POST.get('body', '').strip()
+        if body:
+            # figure out who the recipient is
+            other_user = match.user2 if request.user == match.user1 else match.user1
+            
+            Message.objects.create(
+                sender=request.user,
+                recipient=other_user,
+                match=match,
+                body=body,
+            )
+            
+            create_notification(
+                user=other_user,
+                notification_type='new_message',
+                text=f"New message from {request.user.username}",
+                link=f"/messaging/conversation/{request.user.username}/",
+            )
+    
+    return redirect('messaging:conversation', username=other_user.username)
+
+
+@login_required
+def mark_all_read(request):
+    if request.method == 'POST':
+        Notification.objects.filter(user=request.user, is_read=False).update(is_read=True)
+    return redirect('messaging:notifications')
