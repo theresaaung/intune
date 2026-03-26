@@ -10,7 +10,9 @@ class UserProfile(models.Model):
     ]
     MATCHING_PREFERENCE_CHOICES = [
         ('top_artists','Top Artists'),
+        ('genre','Genre'),
         ('era','Era'),
+        ('opposite_genre','Opposite Genre'),
     ]
     GENDER_CHOICES = [
         ('male','Male'),
